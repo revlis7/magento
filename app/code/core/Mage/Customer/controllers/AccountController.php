@@ -707,6 +707,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     public function editAction()
     {
+        // disable account edit page
+        return $this->_redirect('*/*/');
+
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
@@ -734,6 +737,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     public function editPostAction()
     {
+        // disable account edit page
+        return $this->_redirect('*/*/');
+
         if (!$this->_validateFormKey()) {
             return $this->_redirect('*/*/edit');
         }
