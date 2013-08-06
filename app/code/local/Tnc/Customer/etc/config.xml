@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Tnc_Customer>
+            <version>0.0.1</version>
+        </Tnc_Customer>
+    </modules>
+    <global>
+        <helpers>
+            <customer>
+                <rewrite>
+                    <data>Tnc_Customer_Helper_Data</data>
+                </rewrite>
+            </customer>
+        </helpers>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <customer module="Tnc_Customer">
+                    <file>tnc_customer.xml</file>
+                </customer>
+            </updates>
+        </layout>
+    </frontend>
+</config>
