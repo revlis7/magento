@@ -15,6 +15,15 @@
         </helpers>
     </global>
     <frontend>
+        <routers>
+            <customer>
+                <use>standard</use>
+                <args>
+                    <module>Tnc_Customer</module>
+                    <frontName>customer</frontName>
+                </args>
+            </customer>
+        </routers>
         <layout>
             <updates>
                 <customer module="Tnc_Customer">
