@@ -173,7 +173,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLoginUrl()
     {
-        return $this->_getUrl(self::ROUTE_ACCOUNT_LOGIN, $this->getLoginUrlParams());
+        // redirect to third-party login page
+        return 'http://labs.chiapei.me/login?redirect='.urlencode('http://mag.chiapei.me/');
+        // return $this->_getUrl(self::ROUTE_ACCOUNT_LOGIN, $this->getLoginUrlParams());
     }
 
     /**
@@ -224,7 +226,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLogoutUrl()
     {
-        return $this->_getUrl('customer/account/logout');
+        // logout third-party site
+        return 'http://labs.chiapei.me/login?logout=true&redirect='.urlencode('http://mag.chiapei.me/customer/account/logout/');
+        // return $this->_getUrl('customer/account/logout');
     }
 
     /**
