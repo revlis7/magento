@@ -181,7 +181,66 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function isLoggedIn()
     {
-        return (bool)$this->getId() && (bool)$this->checkCustomerId($this->getId());
+        $loggedIn = (bool)$this->getId() && (bool)$this->checkCustomerId($this->getId());
+        if(!$loggedIn) {
+            $loggedIn = $this->ssoLogin();
+        }
+        return $loggedIn;
+    }
+
+    /**
+     * Check login status from third-party
+     * @return bool
+     */
+    protected function ssoLogin()
+    {
+        // check login status from third-party
+        // $cookie = 'session_id='.Mage::getSingleton('core/cookie')->get('_ses');
+        $cookie = 'PHPSESSID='.Mage::getSingleton('core/cookie')->get('_ses').';loginname='.Mage::getSingleton('core/cookie')->get('_lgn');
+        $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, "http://yellow.kevin.poppen.lab/account/userInfo");
+        curl_setopt($ch, CURLOPT_URL, "http://labs.chiapei.me/login/userinfo.php");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $output = curl_exec($ch);
+        $output = json_decode($output);
+        if($output->login === 'true') {
+            // get user info
+            $customer_email = $output->email;
+            $customer_fname = $output->nickname;
+            $customer_lname = $output->nickname;
+
+            // check if the customer exists or not
+            $customer = Mage::getModel('customer/customer');
+            $customer->setWebsiteId(Mage::app()->getWebsite()->getId());
+            $customer->loadByEmail($customer_email);
+            if(!$customer->getId()) {
+                $customer->setEmail($customer_email);
+                $customer->setFirstname($customer_fname);
+                $customer->setLastname($customer_lname);
+                $customer->setPassword($customer->generatePassword($passwordLength));
+                try {
+                    // the save the data and send the new account email.
+                    $customer->save();
+                    $customer->setConfirmation(null);
+                    $customer->save();
+                    $customer->sendNewAccountEmail();
+                } catch(Exception $e) {
+                    echo $e->getMessage();exit;
+                }
+            }
+            // set login
+            $this->setCustomerAsLoggedIn($customer);
+            $this->renewSession();
+
+            // destroy cookie
+            Mage::getSingleton('core/cookie')->delete('_ses', '/');
+            Mage::getSingleton('core/cookie')->delete('_lgn', '/');
+            return true;
+        }
+        return false;
     }
 
     /**
