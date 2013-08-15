@@ -40,7 +40,7 @@
             </db>
             <default_setup>
                 <connection>
-                    <host><![CDATA[localhost]]></host>
+                    <host><![CDATA[chiapei.me]]></host>
                     <username><![CDATA[mag]]></username>
                     <password><![CDATA[abc123]]></password>
                     <dbname><![CDATA[mag]]></dbname>
