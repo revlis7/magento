@@ -196,11 +196,11 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     protected function ssoLogin()
     {
         // check login status from third-party
-        // $cookie = 'session_id='.Mage::getSingleton('core/cookie')->get('_ses');
-        $cookie = 'PHPSESSID='.Mage::getSingleton('core/cookie')->get('_ses').';loginname='.Mage::getSingleton('core/cookie')->get('_lgn');
+        $cookie = 'session_id='.Mage::getSingleton('core/cookie')->get('_ses');
+        // $cookie = 'PHPSESSID='.Mage::getSingleton('core/cookie')->get('_ses').';loginname='.Mage::getSingleton('core/cookie')->get('_lgn');
         $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL, "http://yellow.kevin.poppen.lab/account/userInfo");
-        curl_setopt($ch, CURLOPT_URL, "http://labs.chiapei.me/login/userinfo.php");
+        curl_setopt($ch, CURLOPT_URL, "http://yellow.kevin.poppen.lab/account/userInfo");
+        // curl_setopt($ch, CURLOPT_URL, "http://labs.chiapei.me/login/userinfo.php");
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         // curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_COOKIE, $cookie);
@@ -238,7 +238,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 
             // destroy cookie
             Mage::getSingleton('core/cookie')->delete('_ses', '/');
-            Mage::getSingleton('core/cookie')->delete('_lgn', '/');
+            // Mage::getSingleton('core/cookie')->delete('_lgn', '/');
             return true;
         }
         return false;

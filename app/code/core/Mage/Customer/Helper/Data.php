@@ -174,7 +174,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function getLoginUrl()
     {
         // redirect to third-party login page
-        return 'http://labs.chiapei.me/login?redirect='.urlencode('http://mag.chiapei.me/');
+        return 'http://yellow.kevin.poppen.lab/login/iframe?url='.urlencode('http://kevin.magento.lab/');
         // return $this->_getUrl(self::ROUTE_ACCOUNT_LOGIN, $this->getLoginUrlParams());
     }
 
