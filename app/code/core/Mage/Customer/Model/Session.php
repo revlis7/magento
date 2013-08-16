@@ -202,7 +202,6 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         curl_setopt($ch, CURLOPT_URL, "http://yellow.kevin.poppen.lab/account/userInfo");
         // curl_setopt($ch, CURLOPT_URL, "http://labs.chiapei.me/login/userinfo.php");
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        // curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_COOKIE, $cookie);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $output = curl_exec($ch);

@@ -174,7 +174,8 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function getLoginUrl()
     {
         // redirect to third-party login page
-        return 'http://yellow.kevin.poppen.lab/login/iframe?url='.urlencode('http://kevin.magento.lab/');
+        // return 'http://labs.chiapei.me/login?redirect='.urlencode('http://mag.chiapei.me/');
+        return 'http://yellow.kevin.poppen.lab/login/iframe';
         // return $this->_getUrl(self::ROUTE_ACCOUNT_LOGIN, $this->getLoginUrlParams());
     }
 
@@ -227,7 +228,8 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function getLogoutUrl()
     {
         // logout third-party site
-        return 'http://labs.chiapei.me/login?logout=true&redirect='.urlencode('http://mag.chiapei.me/customer/account/logout/');
+        // return 'http://labs.chiapei.me/login?logout=true&redirect='.urlencode('http://mag.chiapei.me/customer/account/logout/');
+        return 'http://yellow.kevin.poppen.lab/logout?from=magento';
         // return $this->_getUrl('customer/account/logout');
     }
 
